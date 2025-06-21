@@ -146,7 +146,8 @@ const Home: React.FC = () => {
               href="tel:912"
               className="bg-white text-red-500 px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-colors duration-200"
             >
-              Call Emergency: 912
+              Call Emergency: 112
+              
             </a>
             <button className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold hover:bg-white hover:text-red-500 transition-colors duration-200">
               Find Nearest Hospital
