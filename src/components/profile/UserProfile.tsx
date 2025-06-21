@@ -102,7 +102,7 @@ const UserProfile: React.FC = () => {
                   {user.profile?.profile_image_url ? (
                     <img 
                       src={user.profile.profile_image_url} 
-                      alt={user.profile.full_name}
+                      alt={user.profile.full_name || 'User'}
                       className="w-32 h-32 rounded-full object-cover mx-auto"
                     />
                   ) : (
@@ -139,7 +139,7 @@ const UserProfile: React.FC = () => {
                 <div className="flex items-center text-gray-600">
                   <Calendar className="h-4 w-4 mr-3" />
                   <span className="text-sm">
-                    Joined {new Date(user.created_at || '').toLocaleDateString()}
+                    Joined {user.created_at ? new Date(user.created_at).toLocaleDateString() : 'Unknown'}
                   </span>
                 </div>
               </div>

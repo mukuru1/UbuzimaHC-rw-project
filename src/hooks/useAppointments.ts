@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { dbHelpers } from '../lib/supabase';
+import { supabase, dbHelpers } from '../lib/supabase';
 import { useAuth } from './useAuth';
 
 export const useAppointments = () => {
@@ -47,12 +47,14 @@ export const useAppointments = () => {
   };
 
   const cancelAppointment = async (appointmentId: string, reason?: string) => {
+    if (!user) throw new Error('User not authenticated');
+
     const { data, error } = await supabase
       .from('appointments')
       .update({
         status: 'cancelled',
         cancelled_reason: reason,
-        cancelled_by: user?.id,
+        cancelled_by: user.id,
         cancelled_at: new Date().toISOString()
       })
       .eq('id', appointmentId)

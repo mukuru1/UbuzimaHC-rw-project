@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { dbHelpers } from '../lib/supabase';
+import { useAuth } from './useAuth';
 
 export const useDoctors = () => {
+  const { user } = useAuth();
   const [doctors, setDoctors] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -46,9 +48,11 @@ export const useDoctors = () => {
     rating: number;
     comment?: string;
   }) => {
+    if (!user) throw new Error('User not authenticated');
+    
     try {
       return await dbHelpers.createReview({
-        reviewer_id: user?.id,
+        reviewer_id: user.id,
         ...reviewData
       });
     } catch (err) {

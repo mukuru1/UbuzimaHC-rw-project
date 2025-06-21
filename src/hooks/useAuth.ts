@@ -2,13 +2,34 @@ import { useState, useEffect } from 'react';
 import { User, Session } from '@supabase/supabase-js';
 import { supabase, dbHelpers } from '../lib/supabase';
 
+interface UserProfile {
+  id: string;
+  full_name: string;
+  phone_number: string;
+  role: string;
+  district?: string;
+  sector?: string;
+  cell?: string;
+  emergency_contact_name?: string;
+  emergency_contact_phone?: string;
+  insurance_provider?: string;
+  insurance_number?: string;
+  profile_image_url?: string;
+  date_of_birth?: string;
+  gender?: string;
+  email?: string;
+  address?: string;
+  language_preference?: string;
+  is_active?: boolean;
+  email_verified?: boolean;
+  phone_verified?: boolean;
+  created_at?: string;
+  updated_at?: string;
+  last_login?: string;
+}
+
 interface AuthUser extends User {
-  profile?: {
-    full_name: string;
-    phone_number: string;
-    role: string;
-    district?: string;
-  };
+  profile?: UserProfile;
 }
 
 export const useAuth = () => {
@@ -80,6 +101,7 @@ export const useAuth = () => {
     // Create user profile in our users table
     if (data.user) {
       await dbHelpers.createUser({
+        id: data.user.id,
         email,
         ...userData
       });

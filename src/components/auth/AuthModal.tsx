@@ -46,6 +46,18 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialMode = 's
         });
       }
       onClose();
+      // Reset form
+      setFormData({
+        email: '',
+        password: '',
+        full_name: '',
+        phone_number: '',
+        date_of_birth: '',
+        gender: '',
+        district: '',
+        sector: '',
+        cell: ''
+      });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Authentication failed');
     } finally {
